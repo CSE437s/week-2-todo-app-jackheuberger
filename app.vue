@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 const client = useSupabaseClient()
 const todos = ref([])
 const newTodo = ref('')
@@ -51,7 +53,7 @@ getTodos()
           <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" v-model="newTodo" />
         </div>
         <div>
-          <button @click="addTodo" class="btn btn-secondary w-1/4 my-2">Add Todo</button>
+          <button @click="addTodo()" class="btn btn-secondary w-1/4 my-2">Add Todo</button>
         </div>
       </div>
     </div>
