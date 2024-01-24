@@ -10,6 +10,9 @@ async function getTodos() {
 }
 
 async function addTodo() {
+  // if string empty, do nothing
+  if (!newTodo.value) return
+
   const { data } = await client.from('todos').insert([
     { text: newTodo.value }
   ])
@@ -32,20 +35,24 @@ getTodos()
 
 <template>
   <div class="flex justify-center">
-    <div class="prose prose-lg mt-10 justify-center text-center">
-      <h1>Todo App</h1>
-      <h2>Open Todos</h2>
+    <div class="prose prose-lg mt-10 justify-center text-center w-1/2">
+      <h1 class="text-accent">Todo App</h1>
       <!-- Todos with checkboxes -->
-      <div class="card w-96 shadow-lg mx-auto text-center">
-        <ul>
-          <li v-for="todo in todos" :key="todo.id">
-            <input type="checkbox" v-model="todo.completed" @change="updateTodo(todo)" />
-            {{ todo.text }}
-          </li>
-        </ul>
-
-        <input type="text" v-model="newTodo" />
-        <button @click="addTodo" class="btn-xs">Add Todo</button>
+      <div class="card shadow-lg text-center m-0 bg-neutral-50">
+        <div class="text-left">
+          <ul class="list-disc">
+            <li v-for="todo in todos" :key="todo.id">
+              <input type="checkbox" v-model="todo.completed" @change="updateTodo(todo)" />
+              {{ todo.text }}
+            </li>
+          </ul>
+        </div>
+        <div>
+          <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" v-model="newTodo" />
+        </div>
+        <div>
+          <button @click="addTodo" class="btn btn-secondary w-1/4 my-2">Add Todo</button>
+        </div>
       </div>
     </div>
   </div>
